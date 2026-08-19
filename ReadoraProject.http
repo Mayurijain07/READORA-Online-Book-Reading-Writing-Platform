@@ -1,0 +1,6 @@
+@ReadoraProject_HostAddress = http://localhost:5205
+
+GET {{ReadoraProject_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

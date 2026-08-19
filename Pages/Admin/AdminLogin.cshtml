@@ -1,0 +1,129 @@
+﻿@page
+@model ReadoraProject.Pages.Admin.AdminLoginModel
+@{
+    Layout = null;
+}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Readora Admin | Login</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <style>
+        :root { --admin-blue: #2b3a67; }
+
+        body {
+            background: linear-gradient(rgba(43, 58, 103, 0.4), rgba(43, 58, 103, 0.4)), 
+                        url('https://images.unsplash.com/photo-1507842217343-583bb7270b66?auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .login-box {
+            width: 850px;
+            height: 500px;
+            display: flex;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 25px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        /* Left Branding Panel */
+        .brand-panel {
+            flex: 1;
+            background: var(--admin-blue);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+        }
+
+        .brand-panel i { font-size: 90px; margin-bottom: 15px; }
+        .brand-panel h1 { font-size: 38px; font-weight: 800; letter-spacing: 3px; }
+
+        /* Right Form Panel */
+        .form-panel {
+            flex: 1.2;
+            padding: 60px;
+            background: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .header-title { color: var(--admin-blue); font-weight: 700; font-size: 28px; margin-bottom: 10px; }
+        .header-subtitle { color: #888; font-size: 14px; margin-bottom: 40px; }
+
+        .form-label { font-size: 12px; font-weight: 700; color: #555; text-transform: uppercase; }
+        
+        .input-group { border: 1.5px solid #eee; border-radius: 10px; overflow: hidden; margin-bottom: 20px; }
+        .input-group-text { background: #f8f9fa; border: none; color: var(--admin-blue); }
+        .form-control { border: none; padding: 12px; font-size: 15px; background: #f8f9fa; }
+        .form-control:focus { box-shadow: none; background: #fff; }
+
+        .btn-authorize {
+            background: var(--admin-blue);
+            border: none;
+            padding: 15px;
+            border-radius: 12px;
+            font-weight: 600;
+            color: white;
+            margin-top: 15px;
+            transition: 0.3s;
+            text-transform: uppercase;
+        }
+
+        .btn-authorize:hover { background: #1a2545; transform: translateY(-2px); }
+    </style>
+</head>
+<body>
+
+<div class="login-box">
+    <div class="brand-panel">
+        <i class="bi bi-book-half"></i>
+        <h1>READORA</h1>
+        
+    </div>
+
+    <div class="form-panel">
+        <div class="header-title">Hello, Admin!</div>
+        <div class="header-subtitle">Enter your credentials to access the panel.</div>
+
+        @if (TempData["Error"] != null) {
+            <div class="alert alert-danger py-2 small border-0 mb-4">@TempData["Error"]</div>
+        }
+
+        <form method="post">
+            <div class="mb-3">
+                <label class="form-label">Admin Name</label>
+                <div class="input-group">
+                    <span class="input-group-text"><i class="bi bi-person-fill"></i></span>
+                    <input asp-for="AdminLoginRequest.AdminName" class="form-control" placeholder="Enter Name" required>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Admin Password</label>
+                <div class="input-group">
+                    <span class="input-group-text"><i class="bi bi-lock-fill"></i></span>
+                        <input asp-for="AdminLoginRequest.AdminPassword" class="form-control" placeholder="Admin access key" required>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-authorize">Authorize Access</button>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

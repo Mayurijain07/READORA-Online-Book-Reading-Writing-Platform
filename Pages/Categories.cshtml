@@ -1,0 +1,100 @@
+﻿@page
+@model ReadoraProject.Pages.CategoriesModel
+@{
+    ViewData["Title"] = "Categories";
+    Layout = "_Layout";
+}
+  
+<style>
+    body { background-color: #ffffff; }
+
+    /* Center Aligned Bold Heading */
+    .hero-header {
+        padding: 80px 0 50px;
+        text-align: center; 
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .hero-header h1 {
+        font-weight: 800; 
+        font-size: 3rem;
+        color: #1a1a1a;
+        margin-bottom: 15px;
+        letter-spacing: -1px;
+    }
+
+    .hero-header p {
+        color: #666;
+        font-size: 1.2rem;
+        line-height: 1.6;
+    }
+
+    /* Grid layout with perfect spacing */
+    .category-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 30px;
+        padding: 20px 0 100px;
+    }
+
+    /* Readora Custom Card Design */
+    .readora-card {
+        height: 180px;
+        border-radius: 16px;
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        text-decoration: none !important;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+    }
+
+    .readora-card:hover {
+        transform: translateY(-12px);
+        box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    }
+
+    /* Pattern Overlay for Texture */
+    .card-bg {
+        position: absolute;
+        top: 0; left: 0; width: 100%; height: 100%;
+        background-image: url('https://www.transparenttextures.com/patterns/carbon-fibre.png');
+        opacity: 0.15;
+        z-index: 1;
+    }
+
+    .category-name {
+        position: relative;
+        z-index: 2;
+        color: white;
+        font-weight: 700;
+        font-size: 1.4rem;
+        text-align: center;
+        padding: 0 20px;
+        text-transform: capitalize;
+    }
+
+ 
+    .readora-card:nth-child(3n+1) { background: linear-gradient(135deg, #ff6122 0%, #ff8c5a 100%); }
+    .readora-card:nth-child(3n+2) { background: linear-gradient(135deg, #2c3e50 0%, #4ca1af 100%); }
+    .readora-card:nth-child(3n+3) { background: linear-gradient(135deg, #00b09b 0%, #96c93d 100%); }
+</style>
+<div class="container">
+    <div class="hero-header">
+        <h1 class="display-4 text-center">Discover Your Next Story</h1>
+        <p class="lead text-center text-muted">Pick a genre from the Readora community and start reading today.</p>
+    </div>
+
+</div>
+    <div class="category-grid">
+        @foreach (var cat in Model.Categories)
+        {
+            <a href="/Browse?categoryId=@cat.CategoryId" class="readora-card">
+                <div class="card-bg"></div>
+                <span class="category-name">@cat.CategoryName</span>
+            </a>
+        }
+    </div>

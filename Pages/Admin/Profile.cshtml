@@ -1,0 +1,40 @@
+﻿@page
+@model ReadoraProject.Pages.Admin.ProfileModel
+@{
+    Layout = "_adminLayout";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-5">
+            <div class="card shadow border-0 text-center">
+                <div class="card-header bg-primary text-white py-4">
+                    <div class="mb-3">
+                        <i class="fas fa-user-shield fa-4x"></i>
+                    </div>
+                    <h4 class="mb-0">@Model.Name</h4>
+                    <span class="badge bg-light text-primary">@Model.Role</span>
+                </div>
+                <div class="card-body p-4 text-start">
+                    <div class="mb-3 border-bottom pb-2">
+                        <label class="text-muted small d-block">Admin Username</label>
+                        <span class="fw-bold">@Model.Name</span>
+                    </div>
+                    <div class="mb-3 border-bottom pb-2">
+                        <label class="text-muted small d-block">Account Type</label>
+                        <span class="fw-bold text-success">@Model.Role</span>
+                    </div>
+                    <div class="mb-0 border-bottom pb-2">
+                        <label class="text-muted small d-block">Assigned Date</label>
+                        <span class="fw-bold">@Model.Date</span>
+                    </div>
+                </div>
+                <div class="card-footer bg-white border-0 pb-4">
+                    <a asp-page="/Admin/Dashboard" class="btn btn-outline-primary btn-sm px-4">
+                        <i class="fas fa-arrow-left me-1"></i> Dashboard
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,74 @@
+﻿@page
+@model ReadoraProject.Pages.Admin.FeedbackModel
+@{
+    Layout = "_adminLayout";
+    ViewData["Title"] = "User Feedback";
+}
+<style>
+    .admin-container { padding: 30px; }
+    .card-custom { background: #fff; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.08); overflow: hidden; }
+    .table-header { background-color: #2b3a67; color: white; padding: 20px; }
+    .table thead { background-color: #f8f9fa; color: #2b3a67; text-transform: uppercase; font-size: 0.85rem; }
+    .btn-read { background: #28a745; color: white; border: none; padding: 5px 12px; border-radius: 5px; font-size: 12px; font-weight: 600; cursor: pointer; }
+    .btn-delete { background: #dc3545; color: white; border: none; padding: 5px 12px; border-radius: 5px; font-size: 12px; font-weight: 600; cursor: pointer; }
+    .badge-rating { background: #e3f2fd; color: #0d47a1; font-weight: bold; padding: 4px 10px; border-radius: 4px; }
+    .status-managed { color: #17a2b8; font-weight: bold; font-size: 0.85rem; }
+    .status-unread { color: #ffc107; font-weight: bold; font-size: 0.85rem; }
+</style>
+
+<div class="admin-container">
+    <div class="card-custom">
+        <div class="table-header">
+            <h4 class="mb-0"><i class="bi bi-chat-dots-fill me-2"></i>User Feedbacks Management</h4>
+        </div>
+        <table class="table table-hover align-middle mb-0">
+            <thead>
+                <tr>
+                    <th>Reg No</th>
+                    <th>Message</th>
+                    <th>Rating</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                    <th class="text-center">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.FeedbackDetails != null && Model.FeedbackDetails.Any())
+                {
+                    @foreach (var item in Model.FeedbackDetails)
+                    {
+                        <tr>
+                            <td class="fw-bold text-primary">@item.RegNo</td>
+                            <td style="max-width: 300px;">@item.Message</td>
+                            <td><span class="badge-rating">@item.Rating</span></td>
+                            <td>@item.Date?.ToString("dd MMM yyyy")</td>
+                            <td>
+                                @if (item.AdminId != null)
+                                {
+                                    <span class="status-managed"><i class="bi bi-check-circle-fill"></i> Managed (#@item.AdminId)</span>
+                                }
+                                else
+                                {
+                                    <span class="status-unread"><i class="bi bi-clock-fill"></i> Unread</span>
+                                }
+                            </td>
+                            <td class="text-center">
+                                <form method="post">
+                                    @if (item.AdminId == null)
+                                    {
+                                        <button type="submit" asp-page-handler="MarkRead" asp-route-id="@item.FeedbackId" class="btn-read me-2">Mark Read</button>
+                                    }
+                                    <button type="submit" asp-page-handler="Delete" asp-route-id="@item.FeedbackId" class="btn-delete" onclick="return confirm('Delete karein?')">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr><td colspan="6" class="text-center py-4">No records found.</td></tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

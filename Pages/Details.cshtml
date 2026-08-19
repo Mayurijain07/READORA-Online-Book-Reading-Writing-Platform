@@ -1,0 +1,125 @@
+﻿@page
+@model ReadoraProject.Pages.DetailsModel
+@{
+    ViewData["Title"] = Model.Content.Title;
+    Layout = "_Layout";
+}
+<style>
+    body {
+        background-color: #fdfaf6;
+    }
+    /* Soft reading background */
+    .read-container {
+        max-width: 800px;
+        margin: 50px auto;
+        background: white;
+        padding: 60px;
+        border-radius: 10px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    }
+
+    .story-title {
+        font-size: 3rem;
+        font-weight: 800;
+        color: #2b3a67;
+    }
+
+    .comment-card {
+        border-radius: 12px;
+        margin-bottom: 8px !important; /* Gaps kam karne ke liye */
+        border-left: 4px solid #2b3a67;
+    }
+
+        .comment-card .card-body {
+            padding: 12px 20px !important; /* Internal padding kam ki hai */
+        }
+
+    .comment-list {
+        max-height: 500px;
+        overflow-y: auto;
+        padding-top: 10px;
+    }
+        /* Scrollbar ko thoda patla dikhane ke liye */
+        .comment-list::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        .comment-list::-webkit-scrollbar-thumb {
+            background: #ddd;
+            border-radius: 10px;
+        }
+</style>
+
+<div class="container read-container">
+    <h1 class="story-title">@Model.Content.Title</h1>
+    <p class="text-muted">By Readora User | Published on: @Model.Content.ContentDate.ToString("MMMM dd, yyyy")</p>
+
+    <hr class="my-4">
+
+    <div class="story-content" style="font-size: 1.2rem; line-height: 1.8; color: #333;">
+        @Html.Raw(Model.Content.Description.Replace("\n", "<br/>"))
+    </div>
+    <div class="mt-5 text-center">
+        <a asp-page="/Index" class="btn btn-outline-primary" style="border-radius: 20px; padding: 10px 30px;">
+            <i class="fas fa-arrow-left"></i> Back to Home
+        </a>
+    </div>
+</div>
+
+@* comment section *@
+<div class="container mb-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h5 class="fw-bold mb-3"><i class="bi bi-chat-left-text me-2"></i>Comments (@Model.Comments.Count)</h5>
+
+            <div class="card border-0 shadow-sm mb-3" style="border-radius: 15px;">
+                <div class="card-body p-3">
+                    <form method="post" asp-page-handler="AddComment" asp-route-id="@Model.Content.ContentId">
+                        <div class="form-floating mb-2">
+                            <textarea asp-for="NewCommentText" class="form-control border-0 bg-light" placeholder="Leave a comment" style="height: 80px; border-radius: 12px;"></textarea>
+                            <label>Share your thoughts...</label>
+                        </div>
+                        <div class="d-flex justify-content-end">
+                            <button type="submit" class="btn btn-dark btn-sm px-4 rounded-pill">Post Comment</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="comment-list">
+                @foreach (var comment in Model.Comments)
+                {
+                    <div class="card border-0 shadow-sm comment-card">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-start">
+                                <div class="d-flex align-items-center">
+                                    <i class="bi bi-person-circle fs-4 me-2 text-secondary"></i>
+                                    <div>
+                                        <h6 class="fw-bold mb-0" style="font-size: 0.9rem;">@comment.User?.Username</h6>
+                                        <small class="text-muted" style="font-size: 0.65rem;">@comment.CommentDate.ToString("dd MMM, yyyy")</small>
+                                    </div>
+                                </div>
+
+                                @if (comment.UserId == HttpContext.Session.GetInt32("UserId"))
+                                {
+                                    <form method="post" asp-page-handler="DeleteComment">
+                                        <input type="hidden" name="commentId" value="@comment.CommentId" />
+                                        <input type="hidden" name="contentId" value="@Model.Content.ContentId" />
+                                        <button type="submit" class="btn p-0 border-0 bg-transparent text-danger" onclick="return confirm('Delete this comment?');">
+                                            <i class="bi bi-trash3" style="font-size: 0.85rem;"></i>
+                                        </button>
+                                    </form>
+                                }
+                            </div>
+                            <p class="mt-1 mb-0 text-dark" style="font-size: 0.9rem; line-height: 1.4;">@comment.CommentText</p>
+                        </div>
+                    </div>
+                }
+                @if (!Model.Comments.Any())
+                {
+                    <p class="text-center text-muted small mt-3">No comments yet. Start the conversation!</p>
+                }
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,143 @@
+﻿@page 
+@model ReadoraProject.Pages.RegisterModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account - Readora</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        body, html { height: 100%; margin: 0; font-family: 'Poppins', sans-serif; }
+        .bg-image {
+            background-image: linear-gradient(rgba(44, 62, 80, 0.7), rgba(44, 62, 80, 0.7)), 
+                              url('https://images.unsplash.com/photo-1481627834876-b7833e8f5570?auto=format&fit=crop&q=80&w=2000');
+            background-size: cover; background-position: center; height: 100vh;
+            display: flex; align-items: center; justify-content: center; padding: 20px;
+        }
+        .register-card {
+            background-color: #333333; color: white; padding: 40px;
+            border-radius: 12px; box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+            width: 100%; max-width: 500px;
+        }
+        .register-card h2 { font-weight: 600; text-align: center; margin-bottom: 30px; letter-spacing: 1px; }
+        .form-control { background-color: #444; border: 1px solid #555; color: white !important; padding: 12px; margin-bottom: 15px; border-radius: 6px; }
+        .form-control:focus { background-color: #4a4a4a; border-color: #7ef9d1; box-shadow: none; }
+        label { font-size: 0.85rem; color: #ccc; margin-bottom: 5px; display: block; }
+        .btn-register {
+            background: linear-gradient(to right, #7ef9d1, #86d3f9);
+            border: none; color: #222; font-weight: 600; padding: 14px; width: 100%; border-radius: 8px;
+            margin-top: 10px; text-transform: uppercase; transition: 0.3s ease;
+        }
+        .btn-register:hover { opacity: 0.9; transform: translateY(-2px); }
+        .login-link { text-align: center; margin-top: 25px; font-size: 0.9rem; }
+        .login-link a { color: #7ef9d1; text-decoration: none; font-weight: 600; }
+        select.form-control option { background-color: #333; }
+    </style>
+</head>
+<body>
+
+<div class="bg-image">
+    <div class="register-card">
+        <h2>CREATE AN ACCOUNT</h2>
+
+        <form method="post">
+            @Html.AntiForgeryToken()
+               @*  <div asp-validation-summary="All" class="text-danger"></div> *@
+
+            @* Name & Email *@
+                <input asp-for="AppUser.Username" class="form-control" placeholder="Your Name" required />
+                <input asp-for="AppUser.EmailId" type="email" class="form-control" placeholder="Your Email" required />
+                <input asp-for="AppUser.Password" type="password" class="form-control" placeholder="Password" required autocomplete="new-password"  />
+                <input asp-for="AppUser.ConfirmPassword" type="password"
+                       class="form-control" placeholder="Confirm Password" required />
+
+                <span asp-validation-for="AppUser.ConfirmPassword" class="text-danger"></span>
+            @* Gender & Role Row (Exactly like before) *@
+            <div class="row">
+                <div class="col-md-6">
+                    <label>Gender</label>
+                        <select asp-for="AppUser.Gender" class="form-control" required>
+                        <option value="">Select Gender</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label>Role Type</label>
+                        <select asp-for="AppUser.RoleType" class="form-control" required>
+                        <option value="">Select Role</option>
+                        <option value="Reader">Reader</option>
+                        <option value="Writer">Writer</option>
+                    </select>
+                </div>
+            </div>
+
+            @* Additional Info *@
+                <input asp-for="AppUser.Address" class="form-control" placeholder="Address" />
+                <input asp-for="AppUser.Contact" class="form-control" placeholder="Contact Number" required />
+
+            @* Terms *@
+            <div class="form-check mb-3">
+                <input class="form-check-input" type="checkbox" id="terms" required>
+                <label class="form-check-label" for="terms" style="font-size: 0.8rem; color: #ccc;">
+                    I agree to all statements in <a href="#" style="color: #86d3f9;">Terms of service</a>
+                </label>
+            </div>
+
+            <button type="submit" class="btn btn-register">Register</button>
+
+            <div class="login-link">
+                Already have an account? <a href="/Login">Login here</a>
+            </div>
+        </form>
+    </div>
+</div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // C# se bheja gaya message read karna
+            var successMsg = '@TempData["SuccessMessage"]';
+
+            if (successMsg) {
+                Swal.fire({
+                    title: 'Success!',
+                    text: successMsg,
+                    icon: 'success',
+                    confirmButtonText: 'Go to Login',
+                    confirmButtonColor: '#86d3f9',
+                    background: '#333',
+                    color: '#fff'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Button click karne par Login page par bhej dega
+                        window.location.href = '/Login';
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 

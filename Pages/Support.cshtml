@@ -1,0 +1,240 @@
+﻿@page
+@model ReadoraProject.Pages.SupportModel
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Help & Support";
+}
+
+<style>
+    body {
+        background-color: #ffffff !important;
+        font-family: 'Jost', sans-serif;
+    }
+
+    .support-wrapper {
+        padding: 80px 0;
+    }
+
+    .brand-heading {
+        font-family: 'Prata', serif;
+        color: #ff6122; 
+        font-size: 3.2rem; 
+        font-weight: 800; 
+        margin-bottom: 10px;
+        letter-spacing: -1px; 
+    }
+    .brand-subtext {
+        color: #888;
+        letter-spacing: 1px;
+        margin-bottom: 50px;
+    }
+    .support-card {
+        background: #ffffff;
+        border: 1px solid #eeeeee; 
+        border-radius: 0;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05); 
+        overflow: hidden;
+    }
+
+    .nav-tabs {
+        border: none;
+        background: #fdfcf9;
+    }
+
+        .nav-tabs .nav-link {
+            border: none;
+            padding: 20px;
+            color: #999;
+            text-transform: uppercase;
+            font-size: 13px;
+            letter-spacing: 1.5px;
+            width: 50%;
+            border-bottom: 2px solid transparent;
+        }
+
+            .nav-tabs .nav-link.active {
+                background: #fff;
+                color: #2b3a67;
+                border-bottom: 2px solid #2b3a67;
+                font-weight: 700;
+            }
+    .form-body {
+        padding: 40px;
+    }
+
+    .form-label {
+        font-size: 11px;
+        text-transform: uppercase;
+        font-weight: 700;
+        color: #2b3a67;
+        letter-spacing: 1px;
+    }
+
+    .form-control {
+        border-radius: 0;
+        border: 1px solid #f0f0f0;
+        padding: 15px;
+        background: #fafafa; 
+        transition: 0.3s;
+    }
+
+        .form-control:focus {
+            border-color: #2b3a67;
+            box-shadow: none;
+            background: #fff;
+        }
+
+    
+    .btn-readora {
+        background: #1a1a1a; 
+        color: #fff;
+        border: none;
+        padding: 15px 40px;
+        border-radius: 40px;
+        text-transform: uppercase;
+        font-size: 13px;
+        letter-spacing: 1px;
+        transition: 0.4s;
+        width: 100%;
+        font-weight: 700; 
+    }
+
+        .btn-readora:hover {
+            background: #333333; 
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+    @@media (min-width: 768px) {
+        .btn-readora
+
+    {
+        width: auto;
+    }
+
+    }
+</style>
+
+<div class="support-wrapper">
+    <div class="container">
+        <div class="text-center">
+            <h1 class="brand-heading">Get in Touch</h1>
+
+            <p class="brand-subtext">SHARE YOUR THOUGHTS WITH READORA</p>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-lg-7 col-md-9 col-sm-12">
+                <div class="support-card">
+                    <ul class="nav nav-tabs text-center" id="supportTabs" role="tablist">
+                        <li class="nav-item" role="presentation" style="width: 50%;">
+                            <button class="nav-link active w-100" data-bs-toggle="tab" data-bs-target="#feedback-pane">Feedback</button>
+                        </li>
+                        <li class="nav-item" role="presentation" style="width: 50%;">
+                            <button class="nav-link w-100" data-bs-toggle="tab" data-bs-target="#query-pane">Ask Query</button>
+                        </li>
+                    </ul>
+
+                    <div class="tab-content">
+                        <div class="tab-pane fade show active form-body" id="feedback-pane">
+                            @if (TempData["Success"] != null)
+                            {
+                                <div class="alert alert-success alert-dismissible fade show" role="alert" style="border-radius:0; font-size: 13px;">
+                                    <i class="bi bi-check-circle-fill me-2"></i> @TempData["Success"]
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            }
+                            <p class="text-muted mb-4 small">How was your reading experience? Let us know.</p>
+                            <form method="post" asp-page-handler="SubmitFeedback">
+                                <div class="mb-4">
+                                    <label class="form-label">Rating</label>
+                                    <select asp-for="Feedback.Rating" class="form-control">
+                                        <option value="Excellent">Excellent</option>
+                                        <option value="Good">Good</option>
+                                        <option value="Average">Average</option>
+                                    </select>
+                                </div>
+                                <div class="mb-4">
+                                    <label class="form-label">Message</label>
+                                    <textarea asp-for="Feedback.Message" class="form-control" rows="5" placeholder="Share your experience with us..." required></textarea>
+                                </div>
+                                <div class="text-center">
+                                    <button type="submit" class="btn btn-readora">Submit Feedback</button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="tab-pane fade form-body" id="query-pane">
+                            @if (TempData["Success"] != null)
+                            {
+                                <div class="alert alert-success alert-dismissible fade show" role="alert" style="border-radius:0; font-size: 13px;">
+                                    <i class="bi bi-check-circle-fill me-2"></i> @TempData["Success"]
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            }
+                            <p class="text-muted mb-4 small">Facing issues? Our team is here to help you.</p>
+                            <form method="post" asp-page-handler="SubmitQuery" id="queryForm">
+                                <div class="mb-4">
+                                    <label class="form-label">Query Subject</label>
+                                    <input asp-for="Query.QueryTitle" class="form-control" placeholder="What is this about?" required />
+                                </div>
+                                <div class="mb-4">
+                                    <label class="form-label">Description</label>
+                                    <textarea asp-for="Query.QueryDescription" class="form-control" rows="5" placeholder="Tell us more about the problem..." required></textarea>
+                                </div>
+                                <div class="text-center">
+                                    <button type="submit" class="btn btn-readora">Post Query</button>
+                                </div>
+                            </form>
+                            @if (TempData["Success"] != null)
+                            {
+                                <div class="alert alert-success">@TempData["Success"]</div>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="container mt-5 mb-5">
+                    <h3 class="brand-heading" style="font-size: 1.5rem;">Your Request History</h3>
+                    <div class="support-card p-4">
+                        <table class="table">
+                            <thead>
+                                <tr style="font-size: 11px; text-transform: uppercase; color: #2b3a67;">
+                                    <th>Subject</th>
+                                    <th>Date</th>
+                                    <th>Status</th>
+                                    <th>Admin Reply</th>
+                                </tr>
+                            </thead>
+                            <tbody style="font-size: 14px;">
+                                @foreach (var q in Model.UserQueries)
+                                {
+                                    <tr>
+                                        <td>@q.QueryTitle</td>
+                                        <td>@q.QueryDate?.ToString("dd MMM yyyy")</td>
+                                        <td>
+                                            @if (q.QueryStatus==true)
+                                            {
+                                                <span class="badge bg-success">Resolved</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="badge bg-warning text-dark">Pending</span>
+                                            }
+                                        </td>
+                                        <td class="text-muted italic">
+                                            @(string.IsNullOrEmpty(q.ResponseMesssage) ? "Waiting for response..." : q.ResponseMesssage)
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+

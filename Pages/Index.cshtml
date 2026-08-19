@@ -1,0 +1,765 @@
+﻿@page
+@model ReadoraProject.Pages.IndexModel
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Readora - Discover Stories";
+}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+
+<style>
+    :root {
+        --rd-blue: #2b3a67;
+        --rd-orange: #ff6122;
+        --rd-bg: #fdfdfd;
+        --rd-border: #eee;
+    }
+
+    body {
+        background-color: var(--rd-bg);
+        font-family: 'Segoe UI', sans-serif;
+    }
+
+
+
+    /* ===== ONLY ADDED FIX FOR CAROUSEL ===== */
+    .carousel-img {
+        height: 350px;
+        width: 100%;
+        object-fit: cover;
+    }
+
+    .carousel-item::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: rgba(0,0,0,0.4);
+    }
+
+    .carousel-container {
+        position: absolute;
+        bottom: 40px;
+        left: 50%;
+        transform: translateX(-50%);
+        color: #fff;
+        text-align: center;
+        z-index: 2;
+    }
+
+    .carousel-control-prev,
+    .carousel-control-next {
+        top: 50%;
+        transform: translateY(-50%);
+        bottom: auto;
+    }
+
+    /* FIX HEADING VISIBILITY */
+    .carousel-container h2 {
+        color: #ffffff !important;
+        font-weight: 800;
+        font-size: 2.5rem;
+        text-shadow: 0 2px 10px rgba(0,0,0,0.6);
+    }
+
+    /* FIX PARAGRAPH TEXT */
+    .carousel-container p {
+        color: #ffffff !important;
+        font-size: 0.9rem;
+        text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+    }
+
+    /* REMOVE LEFT-RIGHT WHITE SPACE */
+    #hero {
+        width: 100vw;
+        margin-left: calc(-50vw + 50%);
+    }
+
+    /* REMOVE ANY INTERNAL GAP */
+    #hero-carousel {
+        width: 100%;
+    }
+
+    /* ===== YOUR ORIGINAL STYLES (UNCHANGED) ===== */
+    /* ===== CONTENT SECTIONS DESIGN ===== */
+
+    /* Section Headers */
+    .section-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        margin-top: 80px;
+        margin-bottom: 30px;
+        padding-bottom: 10px;
+        border-bottom: 2px solid #f0f0f0;
+    }
+
+        .section-header h2 {
+            font-weight: 800;
+            font-size: 28px;
+            color: var(--rd-blue);
+            position: relative;
+            margin: 0;
+        }
+
+            .section-header h2::after {
+                content: "";
+                position: absolute;
+                bottom: -12px;
+                left: 0;
+                width: 60px;
+                height: 4px;
+                background: var(--rd-orange);
+                border-radius: 2px;
+            }
+
+    .explore-link {
+        text-decoration: none;
+        color: var(--rd-orange);
+        font-weight: 700;
+        font-size: 15px;
+        transition: 0.3s all ease;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+        .explore-link:hover {
+            color: var(--rd-blue);
+            transform: translateX(5px);
+        }
+
+    /* Card Main Styling */
+    .rd-story-card {
+        background: #ffffff;
+        border-radius: 16px;
+        overflow: hidden;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        height: 100%;
+        border: 1px solid rgba(0,0,0,0.05);
+        position: relative;
+    }
+
+        .rd-story-card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.12) !important;
+        }
+
+    /* Image Container */
+    .img-container {
+        position: relative;
+        height: 220px;
+        overflow: hidden;
+    }
+
+    .card-img-custom {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: 0.5s transform ease;
+    }
+
+    .rd-story-card:hover .card-img-custom {
+        transform: scale(1.1);
+    }
+
+    /* Badges */
+    .badge {
+        padding: 6px 12px;
+        font-weight: 600;
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        border-radius: 6px;
+        backdrop-filter: blur(4px);
+    }
+
+    /* Body Styling */
+    .rd-card-body {
+        padding: 24px;
+    }
+
+    .author-link {
+        text-decoration: none !important;
+        color: #555;
+        font-size: 13px;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 12px;
+        transition: 0.2s;
+    }
+
+        .author-link i {
+            font-size: 18px;
+            color: var(--rd-orange);
+        }
+
+        .author-link:hover {
+            color: var(--rd-orange);
+        }
+
+    .rd-card-body h5, .rd-card-body h6 {
+        transition: 0.3s;
+        line-height: 1.4;
+    }
+
+    .rd-card-body a:hover h5 {
+        color: var(--rd-orange) !important;
+    }
+
+    .desc-text {
+        font-size: 14px;
+        color: #6c757d;
+        display: -webkit-box;
+        -webkit-line-clamp: 2; /* 2 lines ke baad "..." aa jayega */
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        margin-bottom: 20px;
+        height: 42px;
+    }
+
+    /* Footer & Actions */
+    .rd-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-top: 15px;
+        border-top: 1px solid #f8f9fa;
+    }
+
+    .icon-actions {
+        display: flex; 
+        align-items: center; 
+        gap: 10px;
+    }
+        /* Forms ko block banne se rokne ke liye */
+        .icon-actions form {
+            display: inline-flex;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Button ki default styling hatane ke liye */
+        .icon-actions button.icon-link {
+            background: none;
+            border: none;
+            padding: 0;
+            display: flex;
+            align-items: center;
+        }
+
+    .icon-link {
+        background: transparent;
+        border: none;
+        color: #adb5bd;
+        font-size: 18px;
+        padding: 0;
+        transition: 0.3s;
+        position: relative;
+    }
+
+        .icon-link:hover {
+            transform: translateY(-3px);
+        }
+
+            .icon-link:hover .bi-heart, .icon-link:hover .bi-heart-fill {
+                color: #ff4757;
+            }
+
+            .icon-link:hover .bi-chat-left {
+                color: #2ed573;
+            }
+
+            .icon-link:hover .bi-star, .icon-link:hover .bi-star-fill {
+                color: #ffa502;
+            }
+
+            .icon-link:hover .bi-share {
+                color: #1e90ff;
+            }
+
+    .btn-read-arrow {
+        text-decoration: none;
+        color: var(--rd-blue);
+        font-weight: 800;
+        font-size: 13px;
+        text-transform: uppercase;
+        transition: 0.3s;
+    }
+
+        .btn-read-arrow:hover {
+            color: var(--rd-orange);
+            letter-spacing: 0.5px;
+        }
+
+    /* Specific Border for Poems and Short Content */
+    .border-top.border-danger {
+        border-top: 4px solid #ff4757 !important;
+    }
+
+    .border-top.border-warning {
+        border-top: 4px solid #ffa502 !important;
+    }
+
+    /* Quote Styling */
+    .bi-quote {
+        display: block;
+        margin-bottom: -10px;
+    }
+
+</style>
+
+<!-- Hero Section -->
+<section id="hero" class="hero section dark-background">
+    <div id="hero-carousel" class="carousel slide carousel-fade"
+         data-bs-ride="carousel"
+         data-bs-interval="3000">
+
+        <div class="carousel-inner">
+
+            <div class="carousel-item active">
+                <img src="~/images/img1.jpg" class="carousel-img d-block w-100" alt="Welcome">
+                <div class="carousel-container">
+                    <h2>Welcome to Readora</h2>
+                    <p>Discover, read, and share stories across genres—your world of words begins here.</p>
+                </div>
+            </div>
+
+            <div class="carousel-item">
+                <img src="~/images/image2.jpeg" class="carousel-img d-block w-100" alt="Write">
+                <div class="carousel-container">
+                    <h2>Write Your Story</h2>
+                    <p>A simple, beginner-friendly editor to create and publish your stories effortlessly</p>
+                </div>
+            </div>
+
+            <div class="carousel-item">
+                <img src="~/images/image4.jpg" class="carousel-img d-block w-100" alt="Engage">
+                <div class="carousel-container">
+                    <h2>Connect & Engage</h2>
+                    <p>Like, comment, share, follow writers, and save your favorite content</p>
+                </div>
+            </div>
+
+            <div class="carousel-item">
+
+                <img src="~/images/image5.jpg" class="carousel-img d-block w-100" alt="Follow">
+                <div class="carousel-container">
+                    <h2>Follow Your Favorites</h2>
+                    <p>Stay updated with your favorite writers and never miss a story</p>
+                </div>
+            </div>
+
+            <div class="carousel-item">
+
+                <img src="~/images/image6.jpg" class="carousel-img d-block w-100" alt="Secure">
+                <div class="carousel-container">
+                    <h2>Safe & Moderated</h2>
+                    <p>Enjoy a secure environment with continuous admin monitoring</p>
+                </div>
+            </div>
+
+        </div>
+
+       
+        <button class="carousel-control-prev" type="button"
+                data-bs-target="#hero-carousel"
+                data-bs-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
+        </button>
+
+        <button class="carousel-control-next" type="button"
+                data-bs-target="#hero-carousel"
+                data-bs-slide="next">
+            <span class="carousel-control-next-icon"></span>
+        </button>
+
+        
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#hero-carousel" data-bs-slide-to="0" class="active"></button>
+            <button type="button" data-bs-target="#hero-carousel" data-bs-slide-to="1"></button>
+            <button type="button" data-bs-target="#hero-carousel" data-bs-slide-to="2"></button>
+            <button type="button" data-bs-target="#hero-carousel" data-bs-slide-to="3"></button>
+            <button type="button" data-bs-target="#hero-carousel" data-bs-slide-to="4"></button>
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<div class="container pb-5">
+    <div class="section-header">
+        <h2>Featured Stories</h2>
+        @if (HttpContext.Session.GetInt32("UserId") != null)
+        {
+            <a asp-page="/Browse" class="explore-link">Explore Now <i class="bi bi-arrow-right"></i></a>
+        }
+        else
+        {
+            <a href="/Login" class="explore-link">Explore Now <i class="bi bi-arrow-right"></i></a>
+        }
+    </div>
+    <div class="row g-4">
+        @if (Model.AllContents != null)
+        {
+            @foreach (var item in Model.AllContents.Where(c => c.ContentType == "Story").Take(3))
+            {
+                <div class="col-lg-4 col-md-6">
+                    <div class="rd-story-card shadow-sm">
+                        <div class="img-container">
+                            <img src="@item.CoverImage" class="card-img-custom" alt="Story">
+                            <span class="badge position-absolute top-0 start-0 m-3" style="background:var(--rd-blue)">@item.ContentType</span>
+                        </div>
+                        <div class="rd-card-body">
+                            <a asp-page="/UserProfile" asp-route-id="@item.UserId" class="author-link">
+                                <i class="bi bi-person-circle"></i>
+                                <span>@item.User?.Username</span>
+                            </a>
+                            <a asp-page="/Details" asp-route-id="@item.ContentId" class="h5 fw-bold text-decoration-none text-dark d-block mb-2">@item.Title</a>
+                            <p class="desc-text">@item.Description</p>
+                            <div class="rd-footer">
+                                <div class="icon-actions">
+                                    @if (HttpContext.Session.GetInt32("UserId") != null)
+                                    {
+                                        <form method="post" asp-page-handler="ToggleLike" asp-route-contentId="@item.ContentId" style="display:flex;">
+                                            <button type="submit" class="icon-link" title="Like">
+                                                <i class="bi @(item.IsLikedByMe ? "bi-heart-fill text-danger" : "bi-heart")"></i>
+                                            </button>
+                                        </form>
+
+                                        <a asp-page="/Details" asp-route-id="@item.ContentId" class="icon-link" title="Comment" style="display:flex;">
+                                            <i class="bi bi-chat-left"></i>
+                                        </a>
+
+                                        <form method="post" asp-page-handler="ToggleFav" asp-route-contentId="@item.ContentId" style="display:flex;">
+                                            <button type="submit" class="icon-link" title="Favorite">
+                                                <i class="bi @(item.IsFavByMe ? "bi-star-fill text-warning" : "bi-star")"></i>
+                                            </button>
+                                        </form>
+
+                                        <button class="icon-link" title="Share"
+                                                onclick="navigator.clipboard.writeText(window.location.origin + '/Details?id=@item.ContentId'); alert('Link Copied to Dashboard Context!');">
+                                            <i class="bi bi-share"></i>
+                                        </button>
+                                    }
+                                    else
+                                    {
+                                        <a href="/Login" class="icon-link" title="Like"><i class="bi bi-heart"></i></a>
+                                        <a href="/Login" class="icon-link" title="Comment"><i class="bi bi-chat-left"></i></a>
+                                        <a href="/Login" class="icon-link" title="Favorite"><i class="bi bi-star"></i></a>
+                                        <a href="/Login" class="icon-link" title="Share"><i class="bi bi-share"></i></a>
+                                    }
+                                </div>
+                                <a asp-page="/Details" asp-route-id="@item.ContentId" class="btn-read-arrow">Read Story →</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+
+    <div class="section-header">
+        <h2>Latest Poems</h2>
+        @if (HttpContext.Session.GetInt32("UserId") != null)
+        {
+            <a asp-page="/Browse" class="explore-link">Explore Now <i class="bi bi-arrow-right"></i></a>
+        }
+        else
+        {
+            <a href="/Login" class="explore-link">Explore Now <i class="bi bi-arrow-right"></i></a>
+        }
+    </div>
+    <div class="row g-4">
+        @if (Model.AllContents != null)
+        {
+            @foreach (var item in Model.AllContents.Where(c => c.ContentType == "Poem").Take(3))
+            {
+                <div class="col-lg-4 col-md-6">
+                    <div class="rd-story-card shadow-sm border-top border-danger">
+                        <div class="img-container">
+                            <img src="@item.CoverImage" class="card-img-custom" alt="Poem">
+                            <span class="badge position-absolute top-0 start-0 m-3" style="background:var(--rd-orange)">@item.ContentType</span>
+                        </div>
+                        <div class="rd-card-body">
+                            <a asp-page="/UserProfile" asp-route-id="@item.UserId" class="author-link">
+                                <i class="bi bi-person-circle"></i>
+                                <span>@item.User?.Username</span>
+                            </a>
+                            <a asp-page="/Details" asp-route-id="@item.ContentId" class="h5 fw-bold text-decoration-none text-dark d-block mb-2">@item.Title</a>
+                            <p class="desc-text">@item.Description</p>
+                            <div class="rd-footer">
+                                <div class="icon-actions">
+                                    @if (HttpContext.Session.GetInt32("UserId") != null)
+                                    {
+                                        <form method="post" asp-page-handler="ToggleLike" asp-route-contentId="@item.ContentId" style="display:flex;">
+                                            <button type="submit" class="icon-link" title="Like">
+                                                <i class="bi @(item.IsLikedByMe ? "bi-heart-fill text-danger" : "bi-heart")"></i>
+                                            </button>
+                                        </form>
+
+                                        <a asp-page="/Details" asp-route-id="@item.ContentId" class="icon-link" title="Comment" style="display:flex;">
+                                            <i class="bi bi-chat-left"></i>
+                                        </a>
+
+                                        <form method="post" asp-page-handler="ToggleFav" asp-route-contentId="@item.ContentId" style="display:flex;">
+                                            <button type="submit" class="icon-link" title="Favorite">
+                                                <i class="bi @(item.IsFavByMe ? "bi-star-fill text-warning" : "bi-star")"></i>
+                                            </button>
+                                        </form>
+
+                                        <button class="icon-link" title="Share"
+                                                onclick="navigator.clipboard.writeText(window.location.origin + '/Details?id=@item.ContentId'); alert('Link Copied to Dashboard Context!');">
+                                            <i class="bi bi-share"></i>
+                                        </button>
+                                    }
+                                    else
+                                    {
+                                        <a href="/Login" class="icon-link" title="Like"><i class="bi bi-heart"></i></a>
+                                        <a href="/Login" class="icon-link" title="Comment"><i class="bi bi-chat-left"></i></a>
+                                        <a href="/Login" class="icon-link" title="Favorite"><i class="bi bi-star"></i></a>
+                                        <a href="/Login" class="icon-link" title="Share"><i class="bi bi-share"></i></a>
+                                    }
+                                </div>
+                                <a asp-page="/Details" asp-route-id="@item.ContentId" class="btn-read-arrow">Read More →</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+
+    <div class="section-header">
+        <h2>Insightful Articles</h2>
+        @if (HttpContext.Session.GetInt32("UserId") != null)
+        {
+            <a asp-page="/Browse" class="explore-link">Explore Now <i class="bi bi-arrow-right"></i></a>
+        }
+        else
+        {
+            <a href="/Login" class="explore-link">Explore Now <i class="bi bi-arrow-right"></i></a>
+        }
+    </div>
+    <div class="row g-4">
+        @if (Model.AllContents != null)
+        {
+            @foreach (var item in Model.AllContents.Where(c => c.ContentType == "Article").Take(3))
+            {
+                <div class="col-lg-4 col-md-6">
+                    <div class="rd-story-card shadow-sm">
+                        <div class="img-container">
+                            <img src="@item.CoverImage" class="card-img-custom" alt="Article">
+                            <span class="badge bg-dark position-absolute top-0 start-0 m-3">@item.ContentType</span>
+                        </div>
+                        <div class="rd-card-body">
+                            <a asp-page="/UserProfile" asp-route-id="@item.UserId" class="author-link">
+                                <i class="bi bi-person-circle"></i>
+                                <span>@item.User?.Username</span>
+                            </a>
+                            <a asp-page="/Details" asp-route-id="@item.ContentId" class="h5 fw-bold text-decoration-none text-dark d-block mb-2">@item.Title</a>
+                            <p class="desc-text">@item.Description</p>
+                            <div class="rd-footer">
+                                <div class="icon-actions">
+                                    @if (HttpContext.Session.GetInt32("UserId") != null)
+                                    {
+                                        <form method="post" asp-page-handler="ToggleLike" asp-route-contentId="@item.ContentId" style="display:flex;">
+                                            <button type="submit" class="icon-link" title="Like">
+                                                <i class="bi @(item.IsLikedByMe ? "bi-heart-fill text-danger" : "bi-heart")"></i>
+                                            </button>
+                                        </form>
+
+                                        <a asp-page="/Details" asp-route-id="@item.ContentId" class="icon-link" title="Comment" style="display:flex;">
+                                            <i class="bi bi-chat-left"></i>
+                                        </a>
+
+                                        <form method="post" asp-page-handler="ToggleFav" asp-route-contentId="@item.ContentId" style="display:flex;">
+                                            <button type="submit" class="icon-link" title="Favorite">
+                                                <i class="bi @(item.IsFavByMe ? "bi-star-fill text-warning" : "bi-star")"></i>
+                                            </button>
+                                        </form>
+
+                                        <button class="icon-link" title="Share"
+                                                onclick="navigator.clipboard.writeText(window.location.origin + '/Details?id=@item.ContentId'); alert('Link Copied to Dashboard Context!');">
+                                            <i class="bi bi-share"></i>
+                                        </button>
+                                    }
+                                    else
+                                    {
+                                        <a href="/Login" class="icon-link" title="Like"><i class="bi bi-heart"></i></a>
+                                        <a href="/Login" class="icon-link" title="Comment"><i class="bi bi-chat-left"></i></a>
+                                        <a href="/Login" class="icon-link" title="Favorite"><i class="bi bi-star"></i></a>
+                                        <a href="/Login" class="icon-link" title="Share"><i class="bi bi-share"></i></a>
+                                    }
+                                </div>
+                                <a asp-page="/Details" asp-route-id="@item.ContentId" class="btn-read-arrow">Read Article →</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+
+    <div class="section-header">
+        <h2>Short Content & Thoughts</h2>
+        @if (HttpContext.Session.GetInt32("UserId") != null)
+        {
+            <a asp-page="/Browse" class="explore-link">Explore Now <i class="bi bi-arrow-right"></i></a>
+        }
+        else
+        {
+            <a href="/Login" class="explore-link">Explore Now <i class="bi bi-arrow-right"></i></a>
+        }
+    </div>
+    <div class="row g-4">
+        @if (Model.AllContents != null)
+        {
+            @foreach (var item in Model.AllContents.Where(c => c.ContentType == "Short Content").Take(3))
+            {
+                <div class="col-lg-4 col-md-6">
+                    <div class="rd-story-card shadow-sm" style="border-left: 4px solid var(--rd-orange);">
+                        <div class="img-container">
+                            <img src="@item.CoverImage" class="card-img-custom" alt="ShortContent">
+                            <span class="badge bg-success position-absolute top-0 start-0 m-3">@item.ContentType</span>
+                        </div>
+                        <div class="rd-card-body">
+                            <a asp-page="/UserProfile" asp-route-id="@item.UserId" class="author-link">
+                                <i class="bi bi-person-circle"></i>
+                                <span>@item.User?.Username</span>
+                            </a>
+                            <a asp-page="/Details" asp-route-id="@item.ContentId" class="h6 fw-bold text-decoration-none text-dark d-block mb-2">@item.Title</a>
+                            <p class="desc-text small text-muted">@item.Description</p>
+                            <div class="rd-footer">
+                                <div class="icon-actions">
+                                    @if (HttpContext.Session.GetInt32("UserId") != null)
+                                    {
+                                        <form method="post" asp-page-handler="ToggleLike" asp-route-contentId="@item.ContentId" style="display:flex;">
+                                            <button type="submit" class="icon-link" title="Like">
+                                                <i class="bi @(item.IsLikedByMe ? "bi-heart-fill text-danger" : "bi-heart")"></i>
+                                            </button>
+                                        </form>
+
+                                        <a asp-page="/Details" asp-route-id="@item.ContentId" class="icon-link" title="Comment" style="display:flex;">
+                                            <i class="bi bi-chat-left"></i>
+                                        </a>
+
+                                        <form method="post" asp-page-handler="ToggleFav" asp-route-contentId="@item.ContentId" style="display:flex;">
+                                            <button type="submit" class="icon-link" title="Favorite">
+                                                <i class="bi @(item.IsFavByMe ? "bi-star-fill text-warning" : "bi-star")"></i>
+                                            </button>
+                                        </form>
+
+                                        <button class="icon-link" title="Share"
+                                                onclick="navigator.clipboard.writeText(window.location.origin + '/Details?id=@item.ContentId'); alert('Link Copied to Dashboard Context!');">
+                                            <i class="bi bi-share"></i>
+                                        </button>
+                                    }
+                                    else
+                                    {
+                                        <a href="/Login" class="icon-link" title="Like"><i class="bi bi-heart"></i></a>
+                                        <a href="/Login" class="icon-link" title="Comment"><i class="bi bi-chat-left"></i></a>
+                                        <a href="/Login" class="icon-link" title="Favorite"><i class="bi bi-star"></i></a>
+                                        <a href="/Login" class="icon-link" title="Share"><i class="bi bi-share"></i></a>
+                                    }
+                                </div>
+                                <a asp-page="/Details" asp-route-id="@item.ContentId" class="btn-read-arrow small">View</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+
+    <div class="section-header">
+        <h2>Recent Blogs</h2>
+        @if (HttpContext.Session.GetInt32("UserId") != null)
+        {
+            <a asp-page="/Browse" class="explore-link">Explore Now <i class="bi bi-arrow-right"></i></a>
+        }
+        else
+        {
+            <a href="/Login" class="explore-link">Explore Now <i class="bi bi-arrow-right"></i></a>
+        }
+    </div>
+    <div class="row g-4">
+        @if (Model.AllContents != null)
+        {
+            @foreach (var item in Model.AllContents.Where(c => c.ContentType == "Blog").Take(3))
+            {
+                <div class="col-lg-4 col-md-6">
+                    <div class="rd-story-card shadow-sm">
+                        <div class="img-container">
+                            <img src="@item.CoverImage" class="card-img-custom" alt="Blog">
+                            <span class="badge bg-success position-absolute top-0 start-0 m-3">@item.ContentType</span>
+                        </div>
+                        <div class="rd-card-body">
+                            <a asp-page="/UserProfile" asp-route-id="@item.UserId" class="author-link">
+                                <i class="bi bi-person-circle"></i>
+                                <span>@item.User?.Username</span>
+                            </a>
+                            <a asp-page="/Details" asp-route-id="@item.ContentId" class="h5 fw-bold text-decoration-none text-dark d-block mb-2">@item.Title</a>
+                            <p class="desc-text">@item.Description</p>
+                            <div class="rd-footer">
+                                <div class="icon-actions">
+                                    @if (HttpContext.Session.GetInt32("UserId") != null)
+                                    {
+                                        <form method="post" asp-page-handler="ToggleLike" asp-route-contentId="@item.ContentId" style="display:flex;">
+                                            <button type="submit" class="icon-link" title="Like">
+                                                <i class="bi @(item.IsLikedByMe ? "bi-heart-fill text-danger" : "bi-heart")"></i>
+                                            </button>
+                                        </form>
+
+                                        <a asp-page="/Details" asp-route-id="@item.ContentId" class="icon-link" title="Comment" style="display:flex;">
+                                            <i class="bi bi-chat-left"></i>
+                                        </a>
+
+                                        <form method="post" asp-page-handler="ToggleFav" asp-route-contentId="@item.ContentId" style="display:flex;">
+                                            <button type="submit" class="icon-link" title="Favorite">
+                                                <i class="bi @(item.IsFavByMe ? "bi-star-fill text-warning" : "bi-star")"></i>
+                                            </button>
+                                        </form>
+
+                                        <button class="icon-link" title="Share"
+                                                onclick="navigator.clipboard.writeText(window.location.origin + '/Details?id=@item.ContentId'); alert('Link Copied to Dashboard Context!');">
+                                            <i class="bi bi-share"></i>
+                                        </button>
+                                    }
+                                    else
+                                    {
+                                        <a href="/Login" class="icon-link" title="Like"><i class="bi bi-heart"></i></a>
+                                        <a href="/Login" class="icon-link" title="Comment"><i class="bi bi-chat-left"></i></a>
+                                        <a href="/Login" class="icon-link" title="Favorite"><i class="bi bi-star"></i></a>
+                                        <a href="/Login" class="icon-link" title="Share"><i class="bi bi-share"></i></a>
+                                    }
+                                </div>
+                                <a asp-page="/Details" asp-route-id="@item.ContentId" class="btn-read-arrow">Read Blog →</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@* <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script> *@

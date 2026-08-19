@@ -1,0 +1,175 @@
+﻿@page
+@model ReadoraProject.Pages.EditProfileModel
+@{
+    Layout = null; 
+    ViewData["Title"] = "Edit Profile";
+}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+
+<style>
+    body {
+        margin: 0;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .edit-page-wrapper {
+        background: linear-gradient(rgba(43, 58, 103, 0.8), rgba(43, 58, 103, 0.8)), 
+                    url('https://images.unsplash.com/photo-1499750310107-5fef28a66643?q=80&w=2070');
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        padding: 40px 15px;
+    }
+
+    .edit-card {
+        background: #ffffff;
+        border-radius: 20px;
+        box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+        padding: 40px;
+        max-width: 650px;
+        width: 100%;
+        margin: auto;
+    }
+
+    .brand-logo { 
+        width: 140px; 
+        margin-bottom: 15px; 
+        filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+    }
+
+    .heading-text { 
+        color: #2b3a67; 
+        font-weight: 800; 
+        margin-bottom: 5px; 
+        font-size: 1.8rem;
+    }
+    
+    .text-muted { font-size: 0.95rem; }
+
+    .form-label { 
+        font-weight: 600; 
+        color: #2b3a67; 
+        margin-top: 15px; 
+        display: block;
+    }
+
+    .form-control { 
+        border-radius: 12px; 
+        padding: 12px 15px; 
+        border: 1px solid #e0e0e0;
+        background-color: #fdfdfd;
+        transition: 0.3s;
+    }
+
+    .form-control:focus {
+        border-color: #2b3a67;
+        box-shadow: 0 0 0 3px rgba(43, 58, 103, 0.1);
+        background-color: #fff;
+    }
+
+    /* Buttons Style */
+    .btn-save { 
+        background: #2b3a67; 
+        color: white; 
+        padding: 12px 30px; 
+        border-radius: 12px; 
+        border: none;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .btn-save:hover { 
+        background: #1a2542; 
+        color: white; 
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(43, 58, 103, 0.3);
+    }
+
+    .btn-outline-danger {
+        border-radius: 12px;
+        padding: 12px 20px;
+        font-weight: 600;
+        border-width: 2px;
+    }
+
+    .btn-cancel { 
+        color: #6c757d; 
+        text-decoration: none; 
+        font-weight: 600;
+        transition: 0.3s;
+    }
+    .btn-cancel:hover { color: #2b3a67; }
+
+    .back-link {
+        color: #6c757d;
+        font-weight: 500;
+        transition: 0.3s;
+    }
+    .back-link:hover { color: #2b3a67; }
+
+</style>
+
+<div class="edit-page-wrapper">
+    <div class="container">
+        <div class="edit-card">
+            
+            <div class="mb-3">
+                <a asp-page="/UserProfile" class="text-decoration-none back-link">
+                    <i class="bi bi-arrow-left"></i> Back to Profile
+                </a>
+            </div>
+
+            <div class="text-center">
+                <img src="/images/READORA__1_-removebg-preview.png" alt="Readora Logo" class="brand-logo" />
+                <h2 class="heading-text">Edit Your Profile</h2>
+                <p class="text-muted">Personalize your public presence on Readora</p>
+            </div>
+
+            <form method="post" enctype="multipart/form-data" class="mt-4">
+
+                <div class="mb-3">
+                    <label class="form-label">Full Name</label>
+                    <input asp-for="Profile.FullName" class="form-control" placeholder="Enter your full name" />
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Update Your Bio</label>
+                    <textarea asp-for="Profile.Bio" class="form-control" rows="5" 
+                              placeholder="Tell us about your writing journey..."></textarea>
+                </div>
+
+                <div class="mb-4">
+                    <label class="form-label">Profile Picture</label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-white"><i class="bi bi-image"></i></span>
+                        <input type="file" name="photo" class="form-control" accept="image/*" />
+                    </div>
+                    <small class="text-muted mt-1 d-block"><i class="bi bi-info-circle me-1"></i> Best size: 400x400px</small>
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center mt-5">
+                    <a asp-page="/UserProfile" class="btn-cancel">Cancel</a>
+                    
+                    <div class="d-flex gap-2">
+                        <button type="submit" asp-page-handler="Delete" 
+                                class="btn btn-outline-danger" 
+                                onclick="return confirm('Are you sure you want to delete your profile data?')">
+                            <i class="bi bi-trash"></i> Delete
+                        </button>
+
+                        <button type="submit" class="btn btn-save">
+                            <i class="bi bi-check2-circle"></i> Save Profile
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

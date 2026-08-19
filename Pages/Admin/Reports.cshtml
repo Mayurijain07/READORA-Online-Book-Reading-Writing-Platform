@@ -1,0 +1,131 @@
+﻿@page
+@model ReadoraProject.Pages.Admin.ReportsModel
+@{
+    Layout = "_adminLayout";
+}
+
+<div class="container-fluid mt-4">
+    <div class="mb-4">
+        <h2 class="fw-bold text-dark">
+            <i class="fas fa-file-alt me-2 text-primary"></i>System Management Reports
+        </h2>
+        <p class="text-muted">Detailed overview of users, stories, and platform activity.</p>
+    </div>
+
+    <div class="card border-0 shadow-sm mb-4">
+        <div class="card-header bg-primary text-white py-3">
+            <h5 class="mb-0">User Registration Report</h5>
+        </div>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Registration No</th>
+                            <th>User Name</th>
+                            <th>Email Address</th>
+                            <th>Date of Joining</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var user in Model.ReportData.UsersReport)
+                        {
+                            <tr>
+                                <td class="fw-bold text-primary">REG-2026-@user.UserId.ToString("D4")</td>
+                                <td>@user.Username</td>
+                                <td>@user.EmailId</td> @* Yahan extra space ya dot check karo *@
+                                <td>@(user.CreateDate?.ToString("dd MMM yyyy") ?? "N/A")</td> @* Date fix *@
+                            </tr>
+                        }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="card border-0 shadow-sm mb-4">
+        <div class="card-header bg-success text-white py-3">
+            <h5 class="mb-0">Content & Stories Report</h5>
+        </div>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover mb-0 text-center">
+                    <thead class="table-light text-start">
+                        <tr>
+                            <th>Story ID</th>
+                            <th>Title</th>
+                            <th>Upload Date</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var story in Model.ReportData.StoriesReport) {
+                            <tr>
+                                <td>#@story.ContentId</td>
+                                <td class="text-start">@story.Title</td>
+                                <td>@story.ContentDate.ToString("dd-MM-yyyy")</td>
+                                <td>
+                                    <span class="badge @(story.Status ? "bg-success" : "bg-warning text-dark")">
+                                        @(story.Status ? "Published" : "Pending")
+                                    </span>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-header bg-info text-white">Feedback Report Summary</div>
+                <div class="card-body p-0">
+                    <table class="table table-sm mb-0">
+                        <thead class="table-light">
+                            <tr><th>ID</th><th>User</th><th>Date</th></tr>
+                        </thead>
+                        <tbody>
+                            @if (Model.ReportData?.FeedbackReport != null)
+                            {
+                                @foreach (var fb in Model.ReportData.FeedbackReport)
+                                {
+                                    <tr>
+                                        <td>@fb.FeedbackId</td>
+                                        <td>@fb.Message </td>
+                                        <td>@(fb.Date?.ToString("dd-MM-yy") ?? "N/A")</td> @* CS1501 Fix *@
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-header bg-warning text-dark font-weight-bold">User Queries Summary</div>
+                <div class="card-body p-0">
+                    <table class="table table-sm mb-0">
+                        <thead class="table-light">
+                            <tr><th>ID</th><th>Subject</th><th>Status</th></tr>
+                        </thead>
+                        <tbody>
+                            @if (Model.ReportData?.QueriesReport != null) {
+                                @foreach(var q in Model.ReportData.QueriesReport) {
+                                    <tr>
+                                        <td>@q.QueryId</td>
+                                        <td>@q.QueryTitle</td>
+                                        <td>@q.QueryStatus</td>
+                                    </tr>
+                            }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

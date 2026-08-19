@@ -1,0 +1,91 @@
+﻿@page
+@model ReadoraProject.Pages.DashboardModel
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "My Dashboard";
+}
+
+
+<style>
+    body { background-color: #ffffff !important; }
+    .dashboard-title { font-weight: 800; color: #1a1a1a; }
+    .dashboard-card { border-radius: 15px; transition: 0.3s; border: 1px solid #f0f0f0 !important; }
+    .dashboard-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1) !important; }
+    .btn-primary-readora { background: #ff6122; color: white !important; font-weight: 700; border-radius: 50px; padding: 12px 30px; border: none; }
+    .btn-primary-readora:hover { background: #e5561f; opacity: 0.9; }
+</style>
+
+<div class="container mt-5">
+
+    @if (Model.UserRole == "Writer")
+    {   
+        <div class="d-flex justify-content-between align-items-end mb-5">
+            <div>
+                <h2 class="dashboard-title m-0">My Published Stories<span style="color: #ff6122;">.</span></h2>
+                <p class="text-muted mt-2"> View your creative journey.</p>
+            </div>
+            @if (Model.MyContents != null && Model.MyContents.Any())
+            {
+                <a asp-page="WriteContent" class="btn btn-primary-readora">
+                    + WRITE NEW STORY
+                </a>
+            }
+        </div>
+
+        @if (Model.MyContents != null && Model.MyContents.Any())
+        {
+            @* Stories ki Grid *@
+            <div class="row g-4">
+                @foreach (var item in Model.MyContents)
+                {
+                    <div class="col-md-4">
+                        <div class="card h-100 shadow-sm dashboard-card">
+                            <img src="@item.CoverImage" class="card-img-top" alt="Cover" style="height:200px; object-fit:cover; border-radius:15px 15px 0 0;">
+                            <div class="card-body">
+                                <h5 class="card-title" style="font-weight:700;">@item.Title</h5>
+                                <span class="badge" style="background-color: #ff6122; color: white;">@item.ContentType</span>
+                                <p class="card-text mt-2" style="color:#666; font-size:0.9rem;">
+                                    @(item.Description.Length > 100 ? item.Description.Substring(0, 100) + "..." : item.Description)
+                                </p>
+                            </div>
+                            <div class="card-footer bg-white border-0 pb-3">
+                                <small class="text-muted d-block mb-2">Published on: @item.ContentDate.ToString("MMM dd, yyyy")</small>
+                                <a asp-page="/Details" asp-route-id="@item.ContentId" class="btn btn-outline-dark w-100" style="border-radius: 8px; font-weight: 600;">View Details</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            @* Writer but No Stories yet *@
+            <div class="text-center py-5" style="background: #fafafa; border-radius: 30px; border: 2px dashed #eee; margin-top: 20px;">
+                <div style="font-size: 4rem; margin-bottom: 20px;">✍️</div>
+                <h4 class="text-muted">No stories published yet. Ready to shine?</h4>
+                <a asp-page="WriteContent" class="btn btn-primary-readora mt-3">
+                    WRITE YOUR FIRST STORY
+                </a>
+            </div>
+        }
+    }
+    else
+    {       
+        <div class="text-center py-5" style="background: #ffffff; border-radius: 30px; border: 1px solid #f0f0f0; box-shadow: 0 10px 30px rgba(0,0,0,0.05); margin-top: 50px;">
+            <div style="font-size: 4rem; margin-bottom: 20px;">📖</div>
+            <h2 style="font-weight:800; color:#1a1a1a;">Ready to share your stories?</h2>
+            <p class="text-muted mt-3 px-md-5">
+                You are currently logged in as a <b>Reader</b>. To start publishing your own masterpieces, 
+                you need to upgrade your account to a Writer in your profile.
+            </p>
+            
+            <div class="mt-4">
+                <a href="/UserProfile" class="btn btn-dark btn-lg" style="padding: 12px 40px; border-radius: 50px; font-weight:700; background: #1a1a1a;">
+                    GO TO PROFILE TO SWITCH
+                </a>
+            </div>
+        </div>
+    }
+
+</div>
+

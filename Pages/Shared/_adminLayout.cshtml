@@ -1,0 +1,144 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Readora Admin Panel</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="~/admin/assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,600,700,800,900" />
+    <link rel="stylesheet" href="~/admin/assets/css/ready.css" />
+    <link rel="stylesheet" href="~/admin/assets/css/demo.css" />
+
+    <!-- Inline CSS -->
+    <style>
+        body {
+            background-color: #f4f6f9;
+            font-family: 'Nunito', sans-serif;
+        }
+
+        .navbar-header {
+            background: linear-gradient(90deg, #4e73df, #224abe);
+            color: #fff;
+            padding: 10px;
+        }
+
+        .navbar-brand {
+            color: #fff !important;
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        .sidebar {
+            background-color: #1f2d3d !important;
+            color: #fff !important;
+            min-height: 100vh;
+        }
+
+            .sidebar .nav-item a {
+                display: flex;
+                align-items: center;
+                padding: 10px 15px;
+                color: #cfd8dc !important;
+                font-weight: 500;
+                text-decoration: none;
+            }
+
+                .sidebar .nav-item a:hover {
+                    background-color: #4e73df !important;
+                    color: #fff !important;
+                    border-radius: 5px;
+                }
+
+            .sidebar .nav-item i {
+                margin-right: 8px;
+            }
+
+        .footer {
+            background: #1f2d3d;
+            color: #cfd8dc;
+            text-align: center;
+            padding: 10px;
+        }
+
+        .content {
+            padding: 20px;
+        }
+
+        .profile-pic img {
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="scrollbar-inner sidebar-wrapper">
+                <ul class="nav flex-column">
+                    <li class="nav-item"><a class="nav-link" href="/Admin/Dashboard"><i class="la la-dashboard"></i><span>Dashboard</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="/Admin/Users"><i class="la la-users"></i><span>Users</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="/Admin/Content"><i class="la la-file-text"></i><span>Content</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="/Admin/Categories"><i class="la la-list"></i><span>Categories</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="/Admin/Feedback"><i class="la la-comment"></i><span>Feedback</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="/Admin/Queries"><i class="la la-question"></i><span>Queries</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="/Admin/Reports"><i class="la la-flag"></i><span>Reports</span></a></li>
+                  @*   <li class="nav-item"><a class="nav-link" href="/Admin/Settings"><i class="la la-cog"></i><span>Settings</span></a></li> *@
+                    <li class="nav-item mt-3"><a class="nav-link text-danger" href="/Admin/Logout"><i class="la la-power-off"></i><span>Logout</span></a></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Main Panel -->
+        <div class="main-panel">
+            <!-- Topbar -->
+            <nav class="navbar navbar-header navbar-expand-lg">
+                <div class="container-fluid">
+                    <span class="navbar-brand">Readora Admin</span>
+
+                    <!-- Profile Dropdown -->
+                    <ul class="navbar-nav ml-auto align-items-center">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link profile-pic" href="#" id="profileDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <img src="https://ui-avatars.com/api/?name=Mayuri&background=4e73df&color=fff&bold=true" width="36" height="36" alt="Admin" class="rounded-circle mr-2" />
+                                <span class="font-weight-bold">Mayuri</span>
+                                <i class="la la-angle-down ml-1"></i>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <a class="dropdown-item" href="/Admin/Profile"><i class="la la-user mr-2"></i> My Profile</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item text-danger" href="/Admin/Logout"><i class="la la-power-off mr-2"></i> Logout</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <!-- Page Content -->
+            <div class="content">
+                <div class="container-fluid">
+                    @RenderBody()
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <footer class="footer">
+                <div class="container-fluid">
+                    <p class="copyright">© 2026 Readora Admin Panel</p>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <!-- JS -->
+    <script src="~/admin/assets/js/core/jquery.3.2.1.min.js"></script>
+    <script src="~/admin/assets/js/core/popper.min.js"></script>
+    <script src="~/admin/assets/js/core/bootstrap.min.js"></script>
+    <script src="~/admin/assets/js/plugin/chartist/chartist.min.js"></script>
+    <script src="~/admin/assets/js/plugin/bootstrap-notify/bootstrap-notify.min.js"></script>
+    <script src="~/admin/assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
+    <script src="~/admin/assets/js/ready.min.js"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

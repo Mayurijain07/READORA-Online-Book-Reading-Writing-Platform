@@ -1,0 +1,730 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>Readora - Online Reading and writing Platform </title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="format-detection" content="telephone=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="author" content="">
+	<meta name="keywords" content="">
+	<meta name="description" content="">
+
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+		  integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+	<link rel="stylesheet" type="text/css" href="css/normalize.css">
+	<link rel="stylesheet" type="text/css" href="icomoon/icomoon.css">
+	<link rel="stylesheet" type="text/css" href="css/vendor.css">
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<style>
+
+		main {
+			min-height: 70vh; 
+			padding-bottom: 50px; 
+		}
+
+
+		#footer {
+			border-top: 1px solid #eee;
+			padding-top: 40px;
+			background-color: #ffffff;
+		}
+
+
+
+
+		#header {
+			border-bottom: 1px solid #eee;
+			background-color: rgb(225 208 208) !important;
+		}
+
+		.menu-list a {
+			text-decoration: none;
+			color: #333;
+			font-weight: 500;
+			transition: color 0.3s ease;
+		}
+
+			.menu-list a:hover {
+				color: #007bff; 
+			}
+
+		.hamburger .bar {
+			display: block;
+			width: 25px;
+			height: 3px;
+			margin: 4px auto;
+			background-color: #333;
+			background-color: rgb(225 208 208) !important;
+			transition: all 0.3s ease;
+		}
+
+		.menu-list a {
+			text-decoration: none;
+			color: #333;
+			font-weight: 500;
+			transition: color 0.3s ease;
+		}
+
+			.menu-list a:hover {
+				color: #007bff;
+			}
+
+		#header {
+			border-bottom: 1px solid #eee;
+		}
+
+		.top-content {
+			padding: 10px 20px;
+			background: #fff;
+			border-bottom: 1px solid #eee;
+		}
+		
+		.LogoImage {
+			display: flex;
+			align-items: center;
+			justify-content: flex-start;
+		}
+
+			.LogoImage img {
+				width: 55px; 
+				height: auto;
+				display: block;
+			}
+		
+		.login-link {
+			text-decoration: none;
+			color: #333;
+			font-size: 14px;
+		}
+
+		.register-btn {
+			padding: 6px 14px;
+			background: #2b3a67;
+			color: #fff;
+			text-decoration: none;
+			border-radius: 20px;
+			font-size: 14px;
+		}
+		
+		.LogoImage img {
+			width: 120px; 
+			height: auto;
+			display: block;
+		}
+
+		.register-btn {
+			padding: 6px 14px;
+			background: #2b3a67;
+			color: #fff;
+			text-decoration: none;
+			border-radius: 20px;
+			font-size: 14px;
+			border: none;
+			outline: none;
+			box-shadow: none;
+		}
+			.register-btn:focus,
+			.register-btn:active {
+				outline: none !important;
+				box-shadow: none !important;
+				background: #2b3a67 !important;
+			}
+
+		.logo-text {
+			font-size: 24px; 
+			font-weight: 800;
+			letter-spacing: 3px;
+			color: #666;
+			
+			text-decoration: none;
+		}
+			.logo-text:hover {
+				color: #d87c4a;
+			}
+
+		.menu-list li a {
+			font-size: 14px;
+			color: #666;
+			text-decoration: none;
+			transition: 0.3s;
+		}
+
+			.menu-list li a:hover {
+				color: #d87c4a;
+			}
+
+		.right-section {
+			gap: 10px; 
+		}
+
+		.login-link {
+			font-size: 16px;
+			font-weight: 500;
+			color: #333;
+			text-decoration: none;
+		}
+
+			.login-link:hover {
+				color: #d87c4a;
+			}
+		.register-btn {
+			padding: 8px 18px; 
+			font-size: 15px; 
+			background: #2b3a67;
+			color: #fff !important;
+			border-radius: 25px;
+			text-decoration: none;
+			border: none;
+			outline: none;
+			box-shadow: none;
+			transition: 0.3s;
+		}
+
+			.register-btn:hover {
+				background: #1f2a4d;
+			}
+			.register-btn:focus,
+			.register-btn:active {
+				outline: none !important;
+				box-shadow: none !important;
+				background: #2b3a67 !important;
+			}
+
+		.action-menu {
+			margin-left: 5px; 
+		}
+
+		.icon-search {
+			font-size: 18px;
+			color: #444;
+			cursor: pointer;
+		}
+
+			.icon-search:hover {
+				color: #d87c4a;
+			}
+
+		.marquee-container {
+			width: 45%;
+			overflow: hidden;
+			position: relative;
+		}
+
+		.marquee-track {
+			display: flex;
+			gap: 80px;
+			white-space: nowrap;
+			animation: scrollText 18s linear infinite;
+		}	
+			.marquee-track span {
+				font-size: 14px;
+				color: #555;
+				font-weight: 500;
+				letter-spacing: 0.5px;
+			}
+
+		@@keyframes scrollText {
+			0%
+
+		{
+			transform: translateX(0%);
+		}
+
+		100% {
+			transform: translateX(-50%);
+		}
+
+		}
+		.marquee-container:hover .marquee-track {
+			animation-play-state: paused;
+		}
+		
+		body {
+			margin: 0;
+			padding: 0;
+		}
+
+
+		#footer {
+			position: relative;
+			padding: 45px 0 10px;
+			color: #eee;
+			overflow: hidden; 
+		}
+			#footer::before {
+				content: "";
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1481627834876-b7833e8f5570?auto=format&fit=crop&q=80&w=2000');
+				background-size: cover;
+				background-position: center;
+				filter: blur(6px); 
+				z-index: 0;
+			}
+
+		.footer-container, .footer-bottom {
+			position: relative;
+			z-index: 1;
+		}
+		.footer-text {
+			font-size: 14px;
+			color: #444;
+			line-height: 1.9;
+		}
+		#footer h6 {
+			font-weight: 700;
+			margin-bottom: 15px;
+			color: #222;
+			position: relative;
+		}
+			#footer h6::after {
+				content: "";
+				width: 30px;
+				height: 2px;
+				background: #c97a40;
+				display: block;
+				margin-top: 6px;
+			}
+		.footer-links {
+			list-style: none;
+			padding: 0;
+		}
+
+			.footer-links li {
+				margin-bottom: 10px;
+			}
+
+			.footer-links a {
+				color: #555;
+				text-decoration: none;
+				font-size: 14px;
+				transition: 0.3s;
+			}
+
+				.footer-links a:hover {
+					color: #c97a40;
+					padding-left: 6px;
+				}
+		.footer-bottom-text {
+			text-align: center;
+			margin-top: 40px;
+			padding-top: 15px;
+			border-top: 1px solid #d6ccc2;
+			font-size: 13px;
+			color: #555;
+		}
+		body {
+			margin: 0;
+			padding: 0;
+		}
+
+		#footer {
+			background: #111; /* deep black */
+			color: #ddd;
+			padding: 50px 0 15px;
+		}
+
+		.footer-text {
+			font-size: 14px;
+			line-height: 1.8;
+			color: #aaa;
+			margin-bottom: 15px;
+		}
+		#footer h6 {
+			font-weight: 700;
+			margin-bottom: 15px;
+			color: #fff;
+			position: relative;
+		}
+			#footer h6::after {
+				content: "";
+				width: 30px;
+				height: 2px;
+				background: #d87c4a;
+				display: block;
+				margin-top: 6px;
+			}
+			#footer .row {
+			display: flex;
+			align-items: flex-end; 
+			padding-bottom: 20px;
+		}
+
+		.footer-links li {
+			margin-bottom: 15px; 
+			font-size: 18px;
+			font-weight: 500;
+		}
+
+		#footer h6 {
+			font-weight: 700;
+			font-size: 19px;
+			margin-bottom: 25px; 
+			color: #fff;
+		}
+		
+		.footer-bottom-text {
+			text-align: center;
+			margin-top: 30px;
+			padding-top: 15px;
+			border-top: 1px solid #222;
+			font-size: 13px;
+			color: #777;
+			background: #0b0b0b;
+		}
+
+
+		body {
+			margin: 0;
+			padding: 0;
+		}
+
+		.footer-container {
+			width: 100%;
+			max-width: 100%;
+			padding: 0 60px; 
+		}
+
+		
+		#footer {
+			background: #0f0f0f;
+			color: #eee;
+			padding: 45px 0 10px;
+		}
+		
+		.footer-text {
+			font-size: 16px;
+			line-height: 1.8;
+			color: #bbb;
+			font-weight: 500;
+		}
+
+		
+		#footer h6 {
+			color: #fff;
+			font-weight: 700;
+			text-transform: uppercase;
+			letter-spacing: 1px;
+		}
+			#footer h6::after {
+				content: "";
+				width: 35px;
+				height: 2px;
+				background: #d87c4a;
+				display: block;
+				margin-top: 6px;
+			}
+
+		.footer-links {
+			list-style: none;
+			padding: 0;
+		}
+
+			.footer-links li {
+				margin-bottom: 10px;
+				font-size: 18px;
+				font-weight: 500;
+				color: #aaa;
+			}
+
+			.footer-links a {
+				color: #aaa;
+				text-decoration: none;
+				transition: 0.3s;
+			}
+
+				.footer-links a:hover {
+					color: #d87c4a;
+					padding-left: 6px;
+				}
+
+			.footer-bottom {
+			text-align: center;
+			margin-top: 30px;
+			padding-top: 12px;
+			border-top: 1px solid #222;
+			font-size: 13px;
+			color: #777;
+			background: #080808; 
+		}
+		html, body {
+			height: 100%;
+		}
+
+		#footer {
+			margin-bottom: 0;
+		}
+
+		.footer-bottom {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			padding: 15px 40px;
+			border-top: 1px solid #222;
+			background: #080808;
+			position: relative;
+		}
+
+		
+		.footer-copy {
+			position: absolute;
+			left: 50%;
+			transform: translateX(-50%);
+			font-size: 15px;
+			font-weight: 600;
+			color: #aaa;
+			letter-spacing: 0.5px;
+		}
+
+		
+		.footer-bottom-social {
+			display: flex;
+			gap: 10px;
+		}
+
+			.footer-bottom-social a {
+				width: 34px;
+				height: 34px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				background: #1a1a1a;
+				border-radius: 50%;
+				color: #aaa;
+				font-size: 14px;
+				transition: 0.3s;
+			}
+
+				.footer-bottom-social a:hover {
+					background: #d87c4a;
+					color: #fff;
+					transform: translateY(-3px);
+				}
+
+		/* 1. Default mein search box chhupa rahega */
+		.search-box {
+			display: none;
+			position: absolute;
+			right: 100px; /* Isse icon ke bagal mein aayega */
+			top: 50%;
+			transform: translateY(-50%);
+			background: #fff;
+			padding: 5px 15px;
+			border: 1px solid #d87c4a;
+			border-radius: 25px;
+			z-index: 9999;
+			box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+		}
+
+			/* 2. Jab click hoga, tab ye class add hogi aur box dikhega */
+			.search-box.active {
+				display: flex !important;
+			}
+
+		.search-input {
+			border: none;
+			outline: none;
+			padding: 5px;
+		}
+	</style>
+</head>
+
+<body data-bs-spy="scroll" data-bs-target="#header" tabindex="0">
+	<div id="header-wrap">
+		<div class="top-content d-flex justify-content-between align-items-center">
+			<div class="LogoImage">
+				<img src="~/images/image_readora-removebg-preview.png" />
+			</div>
+			<div class="marquee-container">
+				<div class="marquee-track">
+					<span>
+						Where every blank page finds a voice and every curious soul finds a story — Welcome to Readora.
+					</span>
+					<span>
+						Where every blank page finds a voice and every curious soul finds a story — Welcome to Readora.
+					</span>
+				</div>
+			</div>
+			<div class="d-flex align-items-center right-section">
+
+				@if (Context.Session.GetString("UserName") != null)
+				{
+					<div class="dropdown">
+						<a class="nav-link dropdown-toggle" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown">
+							<i class="icon icon-user"></i> @Context.Session.GetString("UserName")
+						</a>
+						<ul class="dropdown-menu dropdown-menu-end">
+							<li><a class="dropdown-item" href="/UserProfile">My Profile</a></li>
+							<li><a class="dropdown-item" href="/Support">Help & Support</a></li>
+							<li><hr class="dropdown-divider"></li>
+							<li><a class="dropdown-item text-danger" href="/Logout">Logout</a></li>
+						</ul>
+					</div>
+				}
+				else
+				{
+					<a href="/login" class="login-link">Login</a>
+					<a href="/register" class="register-btn">Register</a>
+				}
+				<div class="action-menu d-inline-block ms-3">
+					<div class="search-bar">
+						<a href="#" class="search-button search-toggle" data-selector="#header-wrap">
+							<i class="icon icon-search"></i>
+						</a>
+
+						<form role="search" method="get" action="/Index" class="search-box">
+							<input name="searchQuery" class="search-field text search-input" placeholder="Search for stories" type="search">
+						</form>
+					</div>
+				</div>
+				</div>
+				</div>
+				</div>
+	
+			<header id="header" class="py-2 shadow-sm bg-white">
+		<div class="container-fluid">
+			<nav class="navbar navbar-expand-md">
+				<a href="/Index" class="navbar-brand logo-text">READORA</a>
+				<button class="navbar-toggler" type="button"
+						data-bs-toggle="collapse"
+						data-bs-target="#mainNav">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse justify-content-end" id="mainNav">
+					<ul class="navbar-nav">
+						<li class="nav-item px-3"><a class="nav-link" asp-page="/Index">Home</a></li>
+						<li class="nav-item px-3"><a class="nav-link" href="/about">About Us</a></li>
+						<li class="nav-item px-3"><a class="nav-link" href="/browse">Browse</a></li>
+						<li class="nav-item px-3"><a class="nav-link" href="/categories">Categories</a></li>
+						@if (Context.Session.GetString("UserRole") == "Writer")
+						{
+							<li class="nav-item px-3"><a class="nav-link" href="/WriteContent">Write</a></li>
+						}
+					</ul>
+				</div>
+			</nav>
+		</div>
+	</header>
+
+	@* <header id="header" class="py-2 shadow-sm bg-white">
+		<div class="container-fluid">
+			<div class="row align-items-center"
+				<div class="col-md-3 col-6 d-flex align-items-center">
+					<a href="/Index" class="logo-text">READORA</a>
+				</div
+				<div class="col-md-9 col-6">
+					<nav id="navbar" class="d-flex justify-content-end">
+						<ul class="menu-list d-flex mb-0 list-unstyled align-items-center">
+							<li class="menu-item px-3"><a asp-page="/Index">Home</a></li>
+							<li class="menu-item px-3"><a href="/about">About Us</a></li>
+							<li class="menu-item px-3"><a href="/browse">Browse</a></li>
+							<li class="menu-item px-3"><a href="/categories">Categories</a></li>
+
+							@if (Context.Session.GetString("UserRole") == "Writer")
+							{
+								<li class="menu-item px-3"><a href="/WriteContent">Write</a></li>
+							}
+						</ul>
+						<div class="hamburger d-md-none ms-3">
+							<span class="bar"></span>
+							<span class="bar"></span>
+							<span class="bar"></span>
+						</div>
+					</nav>
+				</div>
+
+			</div>
+		</div>
+	</header> *@
+ <main>
+		<div class="container-fluid">
+			@RenderBody()
+		</div>
+	</main>
+	<footer id="footer">
+		<div class="footer-container">
+			<div class="row text-center justify-content-center">
+				<div class="col-md-5 footer-left">
+					<h2 style="font-weight: 900; font-size: 3.5rem; color: #fff; margin-bottom: 10px; letter-spacing: -1px; filter: drop-shadow(0 0 10px rgba(255,255,255,0.2));">
+						Readora<span style="color: #ff6122;">.</span>
+					</h2>
+                    <p class="footer-text">
+					Readora is a platform to explore, write and<br>
+					share stories with a creative community<br>
+					where ideas come alive.
+					</p>
+				</div>
+				<div class="col-md-2 mb-4">
+					<h6>Quick Links</h6>
+					<ul class="footer-links">
+						<li><a href="/">Home</a></li>
+						<li><a href="/browse">Browse</a></li>
+						<li><a href="/categories">Categories</a></li>
+					</ul>
+				</div>
+				<div class="col-md-2 mb-4">
+					<h6>Direct Links</h6>
+					<ul class="footer-links">
+						<li><a href="/Login">Login</a></li>
+						<li><a href="/Register">Register</a></li>
+					</ul>
+				</div>
+    	<div class="col-md-2 mb-4">
+					<h6>Contact</h6>
+					<ul class="footer-links">
+						<li>New Delhi, India</li>
+						<li>support@readora.com</li>
+						<li>+91 98765 43210</li>
+					</ul>
+				</div>
+
+			</div>
+			<div class="footer-bottom d-flex align-items-center justify-content-between">
+				<div class="footer-bottom-social">
+					<a href="#"><i class="bi bi-instagram"></i></a>
+					<a href="#"><i class="bi bi-twitter-x"></i></a>
+					<a href="#"><i class="bi bi-facebook"></i></a>
+					<a href="#"><i class="bi bi-linkedin"></i></a>
+				</div>
+				<div class="footer-copy">
+					© 2026 Readora. All rights reserved.
+				</div>
+				<div></div>
+			</div>
+		</div>
+	</footer>
+	<script src="js/jquery-1.11.0.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+			integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+			crossorigin="anonymous"></script>
+	<script src="js/plugins.js"></script>
+	<script src="js/script.js"></script>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script>
+		$(document).ready(function() {
+			// Toggle Search Box
+			$(".search-toggle").on("click", function(e) {
+				e.preventDefault();
+				$(".search-box").toggleClass("active");
+				$(".search-input").focus(); // Khulte hi cursor andar aa jaye
+			});
+
+			// Bahar click karne par band ho jaye
+			$(document).on("click", function(e) {
+				if (!$(e.target).closest('.search-bar').length) {
+					$(".search-box").removeClass("active");
+				}
+			});
+		});
+	</script>
+
+</body>
+</html>

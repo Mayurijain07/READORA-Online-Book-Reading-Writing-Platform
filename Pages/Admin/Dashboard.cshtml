@@ -1,0 +1,64 @@
+﻿@page
+@model ReadoraProject.Pages.admin.DashboardModel
+@{
+    Layout = "_adminLayout";
+}
+
+<div class="container-fluid py-4">
+    <div class="row g-4 mb-4">
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm p-3 bg-primary text-white text-center">
+                <h6>Total Users</h6>
+                <h2 class="fw-bold">@Model.Stats.TotalUsers</h2>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm p-3 bg-success text-white text-center">
+                <h6>Published Stories</h6>
+                <h2 class="fw-bold">@Model.Stats.TotalStories</h2>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm p-3 bg-warning text-dark text-center">
+                <h6>Feedback</h6>
+                <h2 class="fw-bold">@Model.Stats.TotalFeedback</h2>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm p-3 bg-info text-white text-center">
+                <h6>Categories</h6>
+                <h2 class="fw-bold">@Model.Stats.TotalCategories</h2>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm p-3 text-center" style="background-color: #e83e8c; color: white;">
+                <h6 class="text-uppercase small fw-bold">Total Queries</h6>
+                <h2 class="mb-0">@Model.Stats.TotalQueries</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="card border-0 shadow-sm p-4 mt-4" style="border-radius: 15px;">
+        <h5 class="fw-bold mb-4">Story Upload Statistics</h5>
+        <canvas id="contentChart" height="100"></canvas>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    var ctx = document.getElementById('contentChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'line', // 'bar' bhi kar sakte ho Pluto ki tarah
+        data: {
+            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+            datasets: [{
+                label: 'Stories Published',
+                data: @Json.Serialize(Model.Stats.MonthlyData), // LIVE DATA FROM DB
+                borderColor: '#0d6efd',
+                tension: 0.4,
+                fill: true,
+                backgroundColor: 'rgba(13, 110, 253, 0.1)'
+            }]
+        }
+    });
+</script>

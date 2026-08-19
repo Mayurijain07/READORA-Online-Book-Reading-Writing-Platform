@@ -1,0 +1,203 @@
+﻿@page
+@model ReadoraProject.Pages.AboutusModel
+@{
+    Layout = "_Layout";
+}
+<style>
+    
+    .container-fluid, .main-body, main {
+        padding: 0 !important;
+        margin: 0 !important;
+        width: 100% !important;
+    }
+
+    :root {
+        --rd-navy: #2b3a67;
+        --rd-orange: #ff6122;
+        --rd-cream: #f4f1ea; 
+    }
+
+    
+    .about-hero {
+        background-color: #fff;
+        padding: 100px 0;
+        width: 100vw;
+        position: relative;
+        left: 50%;
+        right: 50%;
+        margin-left: -50vw;
+        margin-right: -50vw;
+    }
+
+    .hero-img-container img {
+        width: 100%;
+        max-height: 450px;
+        object-fit: cover;
+        border-radius: 15px;
+        box-shadow: 25px 25px 0px var(--rd-cream); 
+    }
+
+    
+    .journey-bg {
+        width: 100vw;
+        position: relative;
+        left: 50%;
+        right: 50%;
+        margin-left: -50vw;
+        margin-right: -50vw;
+        padding: 150px 0;
+        
+        background: linear-gradient(rgba(43, 58, 103, 0.8), rgba(43, 58, 103, 0.8)), 
+                    url('https://images.pexels.com/photos/2908984/pexels-photo-2908984.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2') no-repeat center center/cover;
+        background-attachment: fixed;
+    }
+
+    .blur-card {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        padding: 60px;
+        border-radius: 30px;
+        color: white;
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .btn-get-started {
+        background: #1a1a1a;
+        color: white !important;
+        padding: 18px 60px;
+        font-weight: 700;
+        text-transform: uppercase;
+        border-radius: 0;
+        display: inline-block;
+        margin-top: 20px;
+        transition: 0.3s;
+        border: none;
+    }
+
+    .btn-get-started:hover {
+        background: var(--rd-orange);
+        transform: scale(1.05);
+    }
+</style>
+
+<div style="overflow-x: hidden;">
+
+    <div class="about-hero">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <h1 style="font-size: 4.5rem; font-weight: 900; color: #1a1a1a; margin-bottom: 5px;">
+                        About Readora<span style="color: var(--rd-orange);">.</span>
+                    </h1>
+                    <p style="font-size: 1.3rem; color: var(--rd-navy); font-weight: 600; border-left: 5px solid var(--rd-orange); padding-left: 20px;">
+                        Online Book Reading & Writing Platform
+                    </p>
+                    <p style="font-size: 1.15rem; color: #555; line-height: 1.9; margin-top: 30px;">
+                        Readora is a safe, and secure community-driven platform designed to empower amateur writers and passionate readers. 
+                        Where stories find their voice and readers find their escape.
+                    </p>
+                    <p style="font-style: italic; color: var(--rd-orange); font-weight: 500; font-size: 1.2rem;">
+                        "A borderless world for the creative mind."
+                    </p>
+                </div>
+                <div class="col-lg-6 hero-img-container">
+                    <img src="https://images.pexels.com/photos/4318441/pexels-photo-4318441.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="About Readora Image">
+                </div>
+            </div>
+        </div>
+    </div>
+    <section style="padding: 100px 0; background: #ffffff;">
+        <div class="container">
+            <div class="row g-5 align-items-center">
+
+                <div class="col-md-7">
+                    <h2 style="font-weight: 900; color: #1a1a1a; font-size: 3.2rem; margin-bottom: 25px; letter-spacing: -1.5px;">
+                        Our Purpose<span style="color: #ff6122;">.</span>
+                    </h2>
+                    <p style="color: #555; font-size: 1.25rem; line-height: 1.8; max-width: 90%; font-weight: 400;">
+                        Readora was built to break the barriers of traditional publishing. We provide a space where <span style="color: #1a1a1a; font-weight: 700; border-bottom: 2px solid #ff6122;">talent is the only currency</span>.
+                    </p>
+
+                    <div style="margin-top: 50px;">
+                        <div style="display: flex; margin-bottom: 40px;">
+                            <div style="min-width: 65px; height: 65px; background: #fff5f0; border-radius: 20px; display: flex; align-items: center; justify-content: center; font-size: 2rem; margin-right: 25px; box-shadow: 0 10px 20px rgba(255, 97, 34, 0.1);">
+                                🛡️
+                            </div>
+                            <div>
+                                <h5 style="font-weight: 800; color: #1a1a1a; margin-bottom: 5px; font-size: 1.3rem;">Anonymous Publishing</h5>
+                                <p style="color: #666; margin: 0; font-size: 1.05rem;">Share your thoughts and stories without the fear of judgment.</p>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; margin-bottom: 40px;">
+                            <div style="min-width: 65px; height: 65px; background: #fff5f0; border-radius: 20px; display: flex; align-items: center; justify-content: center; font-size: 2rem; margin-right: 25px; box-shadow: 0 10px 20px rgba(255, 97, 34, 0.1);">
+                                💰
+                            </div>
+                            <div>
+                                <h5 style="font-weight: 800; color: #1a1a1a; margin-bottom: 5px; font-size: 1.3rem;">Fully Free</h5>
+                                <p style="color: #666; margin: 0; font-size: 1.05rem;">Knowledge and stories shouldn't have a price tag. Access is always open.</p>
+                            </div>
+                        </div>
+
+                        <div style="display: flex;">
+                            <div style="min-width: 65px; height: 65px; background: #fff5f0; border-radius: 20px; display: flex; align-items: center; justify-content: center; font-size: 2rem; margin-right: 25px; box-shadow: 0 10px 20px rgba(255, 97, 34, 0.1);">
+                                📝
+                            </div>
+                            <div>
+                                <h5 style="font-weight: 800; color: #1a1a1a; margin-bottom: 5px; font-size: 1.3rem;">Draft Support</h5>
+                                <p style="color: #666; margin: 0; font-size: 1.05rem;">Your pace, your rules. Save your progress and refine whenever you're ready.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-5">
+                    <div style="background: #ffffff; border: 2px solid #f8f8f8; padding: 50px; border-radius: 40px; box-shadow: 0 30px 60px rgba(0,0,0,0.05); position: relative;">
+
+                        <h3 style="font-weight: 900; color: #1a1a1a; margin-bottom: 40px; font-size: 1.8rem; letter-spacing: -0.5px;">
+                            Key Objectives
+                            <div style="width: 40px; height: 5px; background: #ff6122; margin-top: 10px; border-radius: 10px;"></div>
+                        </h3>
+
+                        <ul style="list-style: none; padding: 0; margin: 0;">
+                            @foreach (var objective in new[] { "Categorized Reading", "User-Friendly UI", "Community Interactions", "Dual-Role User Profiles", "Secure Admin Panel" })
+                            {
+                                <li style="margin-bottom: 25px; display: flex; align-items: center; font-weight: 700; color: #333; font-size: 1.15rem;">
+                                    <div style="width: 30px; height: 30px; background: #ff6122; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 18px; font-size: 0.8rem; box-shadow: 0 5px 10px rgba(255, 97, 34, 0.3);">
+                                        ✓
+                                    </div>
+                                    @objective
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <div class="journey-bg">
+        <div class="container text-center">
+            <div class="blur-card" style="background: rgba(0, 0, 0, 0.3); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px); border: 1px solid rgba(255,255,255,0.15); padding: 90px 40px; border-radius: 60px;">
+                <h2 style="font-size: 3.8rem; font-weight: 900; margin-bottom: 25px; color: #fff; letter-spacing: -2px;">Start Your Journey Today</h2>
+                <p style="font-size: 1.4rem; color: #eee; margin-bottom: 45px; max-width: 650px; margin-left: auto; margin-right: auto; font-weight: 300;">
+                    Join the <span style="color: #ff6122; font-weight: 700;">Readora</span> community and let your creativity flow across pages.
+                </p>
+                <a href="/Register" class="btn-get-started" style="border-radius: 0; background: #ff6122; color: #fff !important; padding: 20px 60px; font-size: 1.2rem; box-shadow: 0 15px 35px rgba(255, 97, 34, 0.4); border: none;">
+                    GET STARTED NOW
+                </a>
+            </div>
+        </div>
+    </div>
+    </div>
+
+ 
+
+
+
+
+
